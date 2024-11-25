@@ -19,8 +19,6 @@ int main() {
         exit(1);
       } else if ( p == 0){
           printf("Hello from Child!\n");
-      }else{
-          printf("Hello from Parent!\n");
       }
   }
   return 0;
