@@ -19,6 +19,7 @@ int main() {
     printf("%d: %d sec\n", pid1, time1);
     sleep(time1);
     printf("%d finished after %d sec\n", pid1, time1);
+    return time1;
   } else {
     p = fork();
     if (p == -1) {
@@ -31,19 +32,14 @@ int main() {
       printf("%d: %d sec\n", pid2, time2);
       sleep(time2);
       printf("%d finished after %d sec\n", pid2, time2);
+      return time2;
     } else {
       int status;
-      wait(&status);
-      printf("main program here\n");
-      printf("WEXITSTATUS: %d\n", WEXITSTATUS(status));
-      printf("WIFEXITED: %d\n", WIFEXITED(status));
-      printf("WIFSIGNALED: %d\n", WIFSIGNALED(status));
-      printf("WTERMSIG: %d\n", WTERMSIG(status));
-      printf("Main Process %d is done. Child _EXITING_CHILD_PID_ slept for _SEC_ sec", getpid());
+      int child_pid = wait(&status);
+      printf("Main Process %d is done. Child %d slept for %d sec\n", getpid(), child_pid, WEXITSTATUS(status));
+      return 0;
     }
   }
-
-
 
   return 0;
 }
